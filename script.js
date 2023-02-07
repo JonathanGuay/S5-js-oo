@@ -1,53 +1,94 @@
 class fruit{
-
+    pomme = 0;
+    poire = 0;
+    peche = 0;
     constructor(peche, poire, pomme){
         this.peche = peche;
         this.poire = poire;
         this.pomme = pomme;
     }
-
     toString(){
         return "Pêches : " +this.peche + "\nPoires : " + this.poire + "\nPommes : " + this.pomme;
     }
 }
-const panier = {  // faire objet avec le panier
-    pommes : 0,
-    poires : 0,
-    prunes : 0,
+class Panier{
+    prixtotal = 0;
+    constructor(qte, prix, prixtotal){
+        this.qte = qte;
+        this.prix = prix;
+        this.prixtotal = prixtotal;
+    }
+    toString(){
+        return "Quantité : " +this.qte + "\nPrix : " + this.prix + "\nPrix total : " + this.prixtotal;
+    }
+    Afficher(fruit){
+        if (fruit === "pomme"){
+            // this.prixtotal.innerText = +this.prixtotal + " $";
+            return document.querySelector(".totalPomme").textContent = +this.prixtotal + " $";
+        }
+        else if(fruit === "peche"){
+            // this.prixtotal.innerText = +this.prixtotal + " $";
+            return document.querySelector(".totalPeche").textContent = +this.prixtotal + " $";
+        }
+        else{
+            // this.prixtotal.innerText = +this.prixtotal + " $";
+            return document.querySelector(".totalPoire").textContent = +this.prixtotal + " $";
+        }
+    }
 }
-// déclarer mes constantes
-let prixPomme = 11;
-let prixPoire = 12;
-let prixPeche = 10;
-let nouveauPricePomme = 0;
-let nouveauPricePoire = 0;
-let nouveauPricePeche = 0;
-let nouveauPrixTotal = 0;
+const x = {
+    nouveauPricePomme : 0,
+    nouveauPricePoire : 0,
+    nouveauPricePeche : 0,
+}
 
 function ajouterPomme(){
+    // let nouveauPricePomme = 0;
     let QtePomme = document.getElementById("nbPommes").value;
-    nouveauPricePomme = prixPomme * QtePomme;
-    nouveauPricePomme.innerText = +nouveauPricePomme + " $";
-    document.querySelector("#totalFruit").textContent = nouveauPrixTotal;
+    let prixPomme = 11;
+    //let prixPomme = document.getElementById("prixPommes").value;
 
+    x.nouveauPricePomme = prixPomme * QtePomme;
+
+    const Pomme = new Panier(QtePomme, prixPomme, x.nouveauPricePomme);
+
+    Pomme.Afficher("pomme");
 }
 
 function ajouterPoire(){
-    prixPoire = prixPoire + nouveauPricePoire;
-    prixPoire.innerText = +prixPoire + " $";
-    document.querySelector("#nbPoires").textContent = prixPoire;
+    // let nouveauPricePoire = 0;
+    let QtePoire = document.getElementById("nbPoires").value;
+    let prixPoire = 12;
+    //let prixPoire = document.getElementById("prixPoires").value;
 
-    // faire le total
-    nouveauPrixTotal = nouveauPrixTotal + nouveauPricePoire;
-    document.querySelector("#totalFruit").textContent = nouveauPrixTotal;
+    x.nouveauPricePoire = prixPoire * QtePoire;
+
+    const Poire = new Panier(QtePoire, prixPoire, x.nouveauPricePoire);
+
+    Poire.Afficher("poire");
 }
 
 
 function ajouterPeche(){
-    prixPeche = prixPeche + nouveauPricePeche;
-    prixPeche.innerText = +prixPeche + " $";
-    document.querySelector("#nbPeches").textContent = prixPeche;
-    // faire le total
-    nouveauPrixTotal = nouveauPrixTotal + nouveauPricePeche;
-    document.querySelector("#totalFruit").textContent = nouveauPrixTotal;
+    // let nouveauPricePeche = 0;
+    let QtePeche= document.getElementById("nbPeches").value;
+    let prixPeche = 10;
+    //let prixPeche = document.getElementById("prixPeches").value;
+
+    x.nouveauPricePeche = prixPeche * QtePeche;
+
+    const Peche = new Panier(QtePeche, prixPeche, x.nouveauPricePeche);
+
+    Peche.Afficher("peche");
+}
+
+
+function ajouterTotal(){
+    let prixTotal = x.nouveauPricePeche + x.nouveauPricePoire + x.nouveauPricePomme;
+
+    const Total = new fruit(x.nouveauPricePeche, x.nouveauPricePoire, x.nouveauPricePomme);
+
+    document.querySelector("#total").textContent = prixTotal + " $";
+
+
 }
