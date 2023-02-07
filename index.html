@@ -3,10 +3,14 @@
   <head>
     <meta charset="UTF-8">
     <title>Panier de fruits</title>
+
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+
   </head>
   <body>
     <h1>Commander un panier de fruits</h1>
-    <form name="commande" method="post" action="merci.html">
+    <form name="commande" method="post" action="merci.html"> <!--changement fait ici-->
       <table>
         <caption>Votre panier</caption>
         <thead>
@@ -21,19 +25,19 @@
           <tr id="Peches">
             <td>Sac(s) de pêches</td>
             <td id="prixPeches" class="prix">10</td>
-            <td><input id="nbPeches"></td>
+            <td><input id="nbPeches" onchange="ajouterPeche()"></td>
             <td class="totalFruit">0</td>
           </tr>
           <tr id="Poires">
             <td>Sac(s) de poires</td>
             <td id="prixPoires" class="prix">12</td>
-            <td><input id="nbPoires"></td>
+            <td><input id="nbPoires" onchange="ajouterPoire()"></td>
             <td class="totalFruit">0</td>
           </tr>
           <tr id="Pommes">
             <td>Sac(s) de pommes</td>
             <td id="prixPommes" class="prix">11</td>
-            <td><input id="nbPommes"></td>
+            <td><input id="nbPommes" onchange="ajouterPomme()"></td>
             <td class="totalFruit">0</td>
           </tr>
         </tbody>
