@@ -44,16 +44,16 @@
         <tfoot>
           <tr>
             <th class="total" colspan="3" >Total</th>
-            <td class="total" id="total" onchange="ajouterTotal()"></td>
+            <td class="total" id="total">0</td>
           </tr>
         </tfoot>
       </table>
-      <p class="error invisible center">La valeur minimale des paniers est de 20$.</p>
+      <p class="error invisible" id="erreur">La valeur minimale des paniers est de 20$.</p>
       <div class="center">
         <input id="conditions" type="checkbox" required>
         <label for="conditions">J'ai lu et j'accepte les conditions de vente.</label>
         <div class="boutons">
-          <input id="submit" type="submit" disabled>
+          <input id="submit" type="submit" onclick="return valider()" required> <!--il avait un disabled-->
           <input id="reset" type="reset">
         </div>
       </div>

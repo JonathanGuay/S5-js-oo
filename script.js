@@ -1,3 +1,8 @@
+const x = {
+    nouveauPricePomme : 0,
+    nouveauPricePoire : 0,
+    nouveauPricePeche : 0,
+}
 class fruit{
     pomme = 0;
     poire = 0;
@@ -9,6 +14,10 @@ class fruit{
     }
     toString(){
         return "Pêches : " +this.peche + "\nPoires : " + this.poire + "\nPommes : " + this.pomme;
+    }
+    AjouterTotal(){
+        let prixTotal = x.nouveauPricePeche + x.nouveauPricePoire + x.nouveauPricePomme;
+        document.querySelector("#total").textContent = +prixTotal + " $";
     }
 }
 class Panier{
@@ -36,11 +45,7 @@ class Panier{
         }
     }
 }
-const x = {
-    nouveauPricePomme : 0,
-    nouveauPricePoire : 0,
-    nouveauPricePeche : 0,
-}
+const Total = new fruit(x.nouveauPricePeche, x.nouveauPricePoire, x.nouveauPricePomme);
 
 function ajouterPomme(){
     // let nouveauPricePomme = 0;
@@ -53,6 +58,8 @@ function ajouterPomme(){
     const Pomme = new Panier(QtePomme, prixPomme, x.nouveauPricePomme);
 
     Pomme.Afficher("pomme");
+
+    Total.AjouterTotal();
 }
 
 function ajouterPoire(){
@@ -66,8 +73,9 @@ function ajouterPoire(){
     const Poire = new Panier(QtePoire, prixPoire, x.nouveauPricePoire);
 
     Poire.Afficher("poire");
-}
 
+    Total.AjouterTotal();
+}
 
 function ajouterPeche(){
     // let nouveauPricePeche = 0;
@@ -80,15 +88,28 @@ function ajouterPeche(){
     const Peche = new Panier(QtePeche, prixPeche, x.nouveauPricePeche);
 
     Peche.Afficher("peche");
+
+    Total.AjouterTotal();
 }
-
-
-function ajouterTotal(){
-    let prixTotal = x.nouveauPricePeche + x.nouveauPricePoire + x.nouveauPricePomme;
-
-    const Total = new fruit(x.nouveauPricePeche, x.nouveauPricePoire, x.nouveauPricePomme);
-
-    document.querySelector("#total").textContent = prixTotal + " $";
-
-
+// fonction qui fonctionne pas
+function valider(){
+    /*let element = document.getElementById("conditions").value;
+    let submit = document.getElementById("submit").value;
+    if (element === true){
+        submit = required;
+    }
+    else {
+        submit = disabled;
+    }*/
+    // fonctionne pas
+    let prixTotal = document.forms[0]["total"].value;
+    // let prixTotal = document.getElementById("total").value;
+    if (prixTotal > 20){
+        document.getElementById("erreur").setAttribute("class", "invisible");
+        return true;
+    }
+    else{
+        document.getElementById("erreur").setAttribute("class", "error");
+        return false;
+    }
 }
