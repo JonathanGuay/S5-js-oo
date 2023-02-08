@@ -5,6 +5,7 @@ const x = {
     QtePomme : 0,
     QtePeche : 0,
     QtePoire : 0,
+    QteTotal : 0
 }
 class fruit{
     pomme = 0;
@@ -14,9 +15,6 @@ class fruit{
         this.peche = peche;
         this.poire = poire;
         this.pomme = pomme;
-    }
-    toString(){
-        return "Pêches : " +this.peche + "\nPoires : " + this.poire + "\nPommes : " + this.pomme;
     }
     AjouterTotal(){
         let prixTotal = x.nouveauPricePeche + x.nouveauPricePoire + x.nouveauPricePomme;
@@ -29,9 +27,6 @@ class Panier{
         this.qte = qte;
         this.prix = prix;
         this.prixtotal = prixtotal;
-    }
-    toString(){
-        return "Quantité : " +this.qte + "\nPrix : " + this.prix + "\nPrix total : " + this.prixtotal;
     }
     Afficher(fruit){
         if (fruit === "pomme"){
@@ -50,12 +45,15 @@ class Panier{
     UpdateQte(fruit){
         if (fruit === "pomme"){
             x.QtePomme = x.QtePomme + this.qte;
+            x.QteTotal = x.QteTotal + x.QtePomme;
         }
         else if(fruit === "peche"){
             x.QtePeche = x.QtePeche + this.qte;
+            x.QteTotal = x.QteTotal + x.QtePeche;
         }
         else{
             x.QtePoire = x.QtePoire + this.qte;
+            x.QteTotal = x.QteTotal + x.QtePoire;
         }
     }
 }
@@ -71,7 +69,6 @@ function ajouterPomme(){
     Pomme.Afficher("pomme");
     Pomme.UpdateQte("pomme")
     Total.AjouterTotal();
-
 }
 
 function ajouterPoire(){
@@ -97,26 +94,35 @@ function ajouterPeche(){
     Peche.UpdateQte("peche")
     Total.AjouterTotal();
 }
+
 // fonction qui fonctionne pas
 function valider(){
-    /*let element = document.getElementById("conditions").value;
-    let submit = document.getElementById("submit").value;
-    if (element === true){
-        submit = required;
-    }
-    else {
-        submit = disabled;
-    }*/
-    // fonctionne pas
     // let prixTotal = document.getElementById("total").value;
     let prixTotal = document.forms[0]["total"].value;
-    let qteTotal = x.QtePeche + x.QtePoire + x.QtePomme;
-    if (prixTotal > 20 && qteTotal < 25){
-        document.getElementById("erreur").setAttribute("class", "invisible");
-        return true;
-    }
-    else{
+    // const qteTotal = new Panier(x.QtePeche, x.QtePoire, x.QtePomme);
+    // let qteTotal = x.QtePeche + x.QtePoire + x.QtePomme;
+    if (prixTotal <= 20 && x.QteTotal >= 25){
         document.getElementById("erreur").setAttribute("class", "error");
         return false;
     }
+    else{
+        document.getElementById("erreur").setAttribute("class", "invisible");
+        return true;
+    }
 }
+
+// fonction pas utile à cause le readonly fait toute la job
+/*function able(){
+    let element = document.getElementById("conditions").value;
+    //let element = document.forms[0]["conditions"].value;
+    //let submit = document.getElementById("submit").value;
+
+    if (element === true){
+        document.getElementById("submit").setAttribute("readonly", "");
+        return true;
+    }
+    else {
+        document.getElementById("submit").setAttribute("readonly", "readonly");
+        return false;
+    }
+}*/
