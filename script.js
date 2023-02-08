@@ -2,6 +2,7 @@ const x = {
     nouveauPricePomme : 0,
     nouveauPricePoire : 0,
     nouveauPricePeche : 0,
+    PrixTotal : 0,
     QtePomme : 0,
     QtePeche : 0,
     QtePoire : 0,
@@ -18,7 +19,8 @@ class fruit{
     }
     AjouterTotal(){
         let prixTotal = x.nouveauPricePeche + x.nouveauPricePoire + x.nouveauPricePomme;
-        document.querySelector("#total").textContent = +prixTotal + " $";
+        //document.querySelector("#totale").textContent = +prixTotal + " $";
+        document.querySelector("#totale").textContent = +prixTotal;
     }
 }
 class Panier{
@@ -45,16 +47,19 @@ class Panier{
     UpdateQte(fruit){
         if (fruit === "pomme"){
             x.QtePomme = x.QtePomme + this.qte;
-            x.QteTotal = x.QteTotal + x.QtePomme;
         }
         else if(fruit === "peche"){
             x.QtePeche = x.QtePeche + this.qte;
-            x.QteTotal = x.QteTotal + x.QtePeche;
         }
         else{
             x.QtePoire = x.QtePoire + this.qte;
-            x.QteTotal = x.QteTotal + x.QtePoire;
         }
+    }
+    UpdatePrix(){
+        x.PrixTotal = x.PrixTotal + this.prix;
+    }
+    UpdateQteTotal(){
+        x.QteTotal = x.QteTotal + this.qte;
     }
 }
 const Total = new fruit(x.nouveauPricePeche, x.nouveauPricePoire, x.nouveauPricePomme);
@@ -68,6 +73,8 @@ function ajouterPomme(){
     const Pomme = new Panier(QtePomme, prixPomme, x.nouveauPricePomme);
     Pomme.Afficher("pomme");
     Pomme.UpdateQte("pomme")
+    Pomme.UpdatePrix();
+    Pomme.UpdateQteTotal();
     Total.AjouterTotal();
 }
 
@@ -80,6 +87,8 @@ function ajouterPoire(){
     const Poire = new Panier(QtePoire, prixPoire, x.nouveauPricePoire);
     Poire.Afficher("poire");
     Poire.UpdateQte("poire")
+    Poire.UpdatePrix();
+    Poire.UpdateQteTotal();
     Total.AjouterTotal();
 }
 
@@ -92,22 +101,25 @@ function ajouterPeche(){
     const Peche = new Panier(QtePeche, prixPeche, x.nouveauPricePeche);
     Peche.Afficher("peche");
     Peche.UpdateQte("peche")
+    Peche.UpdatePrix();
+    Peche.UpdateQteTotal();
     Total.AjouterTotal();
 }
 
 // fonction qui fonctionne pas
 function valider(){
-    // let prixTotal = document.getElementById("total").value;
-    let prixTotal = document.forms[0]["total"].value;
+    //let prixTotal = document.getElementById("totale")[0].value;
+    //let prixTotal = document.querySelector("#totale").value;
+    //let prixTotal = document.forms[0]["totale"].value;
     // const qteTotal = new Panier(x.QtePeche, x.QtePoire, x.QtePomme);
     // let qteTotal = x.QtePeche + x.QtePoire + x.QtePomme;
-    if (prixTotal <= 20 && x.QteTotal >= 25){
-        document.getElementById("erreur").setAttribute("class", "error");
-        return false;
-    }
-    else{
+    if (x.PrixTotal >= 20 && x.QteTotal <= 25){
         document.getElementById("erreur").setAttribute("class", "invisible");
         return true;
+    }
+    else{
+        document.getElementById("erreur").setAttribute("class", "error");
+        return false;
     }
 }
 
